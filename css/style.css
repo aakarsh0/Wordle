@@ -6,9 +6,15 @@
 }
 
 html[color-theme="dark"] {
-	--accent:		hsl(288, 61%, 24%);
+	--accent:		hsl(288, 60%, 25%);
 	--foreground:	hsl(0, 0%, 100%);
 	--background:	hsl(0, 0%, 3%);
+}
+
+html[color-theme="light"] {
+	--accent:		hsl(289, 75%, 35%);
+	--foreground:	hsl(0, 0%, 0%);
+	--background:	hsl(0, 0%, 100%);
 }
 
 html {
@@ -42,19 +48,20 @@ header {
 	width: calc(var(--header-height) - 1rem);
 	height: calc(var(--header-height) - 1rem);
 }
-#cog { fill: var(--foreground); }
+/* #cog { fill: var(--foreground); } */
 #cutout { fill: var(--accent); }
-#m { fill: var(--foreground); }
+/* #m { fill: var(--foreground); } */
 /**************** /LOGO ***************/
 
 main {
 	margin-top: var(--header-height);
 	padding: 2rem;
 	flex-grow: 1;
-	background-color: hsl(0, 0%, 9%);;
+	background-color: hsl(0, 0%, 8%);;
 }
 
 .text {
 	color: var(--foreground);
 	font-size: 1.6rem;
+	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
