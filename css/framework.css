@@ -1,0 +1,26 @@
+.responsive-fluid {
+	width: 80%;
+	background-color: #171717;
+}
+@media(max-width: 576px) {
+	.responsive-fluid { width: 100%; }
+}
+
+.responsive-rigid {
+	background-color: #171717;
+}
+@media(max-width: 576px) {
+	.responsive-rigid { width: 100vw;}
+}
+@media(min-width: 576px) {
+	.responsive-rigid { width: 540px;}
+}
+@media(min-width: 768px) {
+	.responsive-rigid { width: 720px;}
+}
+@media(min-width: 992px) {
+	.responsive-rigid { width: 960px;}
+}
+@media(min-width: 1200px) {
+	.responsive-rigid { width: 1140px;}
+}
