@@ -65,3 +65,8 @@ main {
 	font-size: 1.6rem;
 	font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
+
+input[type="text"] {
+	border-radius: 0.2rem;
+	padding: 0.5rem;
+}
