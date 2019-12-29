@@ -1,0 +1,10 @@
+Database of movies I have seen, and want to see - see spreadsheet
+Database of series I have seen, partially seen and want to seen - see spreadsheet
+
+Include loads of information including what I thought, my rating, my rating after research/re-watch
+Include reason for watching, notable actors etc
+Use an api or at worst a web scraper to grab the imdb data for the media, along with trailer link, thumbnail etc
+
+Perhaps use python to modify the database? Security levels on the website?
+
+Allow website viewers to send a recomendation.

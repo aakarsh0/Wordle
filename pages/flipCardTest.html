@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			border: 0;
+			box-sizing: border-box;
+		}
+		:root {
+			font-size: 62.5%;
+			height: 100%;
+		}
+		body {
+			height: 100%;
+			display: grid;
+			place-items: center;
+			background: #080808;
+		}
+		div {
+			display: grid;
+			place-items: center;
+			font-size: 3rem;
+			color: beige;
+			font-family: Helvetica, sans-serif;
+		}
+		.flipper {
+			width: 50vh;
+			height: 40vh;
+			perspective: 100rem;
+			position: relative;
+			cursor: pointer;
+		}
+		.flipper div {
+			position: absolute;
+			top: 0;
+			right: 0;
+			bottom: 0;
+			left: 0;
+			backface-visibility: hidden;
+			transition: transform 0.8s ease-in-out;
+			border: 1rem solid beige;
+		}
+		.flipper-front {
+			background: linear-gradient(darkmagenta, dodgerblue);
+		}
+		.flipper-back {
+			background: linear-gradient(red, yellow);
+			transform: rotateX(-180deg);
+		}
+		.flipper.hover:hover .flipper-front {
+			transform: rotateX(20deg);
+		}
+		.flipper.flipped .flipper-front {
+			transform: rotateX(180deg);
+		}
+		.flipper.flipped .flipper-back {
+			transform: rotateX(0deg);
+		}
+	</style>
+	<title>Test</title>
+</head>
+	<body>
+		<div class="flipper hover">
+			<div class="flipper-front">This is</div>
+			<div class="flipper-back">Test Text</div>
+		</div>
+	</body>
+	<script>
+		var flipper = document.querySelector(".flipper");
+		var flipped = false;
+		var flipBack, hover;
+		function resetFlip() {
+			flipper.classList.remove("flipped");
+			flipper.classList.add("hover");
+			flipped = false;
+		}
+		flipper.addEventListener("click", () => {
+			if (flipped)
+				resetFlip();
+			else {
+				flipper.classList.add("flipped");
+				flipper.classList.remove("hover");
+				clearTimeout(flipBack);
+				flipBack = setTimeout(resetFlip, 4000);
+				flipped = true;
+			}
+		});
+	</script>
+</html>
