@@ -42,22 +42,14 @@
 			transition: transform 0.8s ease-in-out;
 			border: 1rem solid beige;
 		}
-		.flipper-front {
-			background: linear-gradient(darkmagenta, dodgerblue);
-		}
+		.flipper-front { background: linear-gradient(darkmagenta, dodgerblue) }
 		.flipper-back {
 			background: linear-gradient(red, yellow);
 			transform: rotateX(-180deg);
 		}
-		.flipper.hover:hover .flipper-front {
-			transform: rotateX(20deg);
-		}
-		.flipper.flipped .flipper-front {
-			transform: rotateX(180deg);
-		}
-		.flipper.flipped .flipper-back {
-			transform: rotateX(0deg);
-		}
+		.flipper.hover:hover .flipper-front { transform: rotateX(20deg) }
+		.flipper.flipped .flipper-front { transform: rotateX(180deg) }
+		.flipper.flipped .flipper-back { transform: rotateX(0deg) }
 	</style>
 	<title>Test</title>
 </head>
