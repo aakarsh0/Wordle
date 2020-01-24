@@ -1,0 +1,369 @@
+@import url('https://fonts.googleapis.com/css?family=Fredoka+One&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Nunito:400,700,800,900&display=swap');
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 62.5%;
+	font-family: Nunito, sans-serif;
+	height: 100%;
+	--main-color: #4447B4;
+	--grad-start: #695bd7;
+	--grad-end: #6bd5ff;
+}
+
+body {
+	height: 100%;
+	display: grid;
+	grid-template: 1fr 6fr 3fr/1fr;
+	overflow-y: hidden;
+}
+
+header {
+	/* Make the font size responsive */
+	background-color: var(--main-color);
+	color: white;
+	display: grid;
+	place-content: center;
+}
+
+h1 {
+	font-family: "Fredoka One", sans-serif;
+	font-size: 7rem;
+	letter-spacing: 2px;
+	text-align: center;
+}
+
+h2 {
+	display: inline-block;
+	text-align: center;
+	font-size: 5rem;
+}
+
+.h2 {
+	display: flex;
+	justify-content: center;
+}
+
+.copy {
+	margin-left: 2rem;
+	font-size: 4rem;
+	cursor: pointer;
+	transition: transform 0.1s ease-in-out;
+	outline: none;
+}
+
+.copy:active {
+	transform: scale(0.9);
+}
+
+.copied-popup {
+	position: absolute;
+	bottom: 0;
+	top: 0;
+	width: 100vw;
+	height: 100vh;
+	background: #000000D0;
+	z-index: 100;
+}
+
+.copied-popup::before {
+	content: "Copied!";
+	position: absolute;
+	font-size: 15rem;
+	top: 50%;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%);
+	color: white;
+}
+
+main {
+	display: grid;
+	grid-template: 5fr 3fr/1fr;
+}
+
+section { padding: 0 12rem }
+
+.text {
+	perspective: 1000rem;
+}
+
+.card {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transition: transform 1s cubic-bezier(0.7, 0.2, 0.3, 0.8);
+	transform-style: preserve-3d;
+}
+
+.side {
+	position: absolute;
+	backface-visibility: hidden;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	display: grid;
+	grid-template: 1fr 1fr/1fr;
+}
+
+.front {
+	background-image: linear-gradient(135deg, var(--grad-start), var(--grad-end));
+}
+
+.back {
+	background-image: linear-gradient(-135deg, var(--grad-start), var(--grad-end));
+	transform: rotateY(-180deg);
+}
+
+.card.rotated {
+	transform: rotateY(540deg);
+	background-color: red;
+}
+
+.textarea {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+textarea {
+	resize: none;
+	margin: 0 auto;
+	border: 1.5rem solid var(--main-color);
+	border-radius: 1rem;
+	width: 100%;
+	height: 70%;
+	padding: 3rem;
+	font-family: monospace;
+	font-size: 4rem;
+}
+
+button {
+	cursor: pointer;
+	position: relative;
+	border: none;
+	outline: none;
+	font-family: Nunito, sans-serif;
+	background-color: transparent;
+	height: 12rem;
+	padding: 1rem;
+	font-size: 5rem;
+	color: white;
+	border-radius: 1.5rem;
+	transition: transform 0.1s ease-in-out;
+	overflow: hidden;
+}
+
+button:active {	transform: scale(0.9) }
+
+button::before {
+	content: "";
+	position: absolute;
+	top: -50%;
+	left: 50%;
+	width: 0%;
+	height: 0%;
+	border-radius: 100%;
+	background-color: var(--grad-start);
+	transform-origin: left top;
+	transition: all 0.3s ease-in-out;
+	z-index: -1;
+}
+
+button::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	border-radius: 1.5rem;
+	background-color: var(--main-color);
+	z-index: -2;
+}
+
+.buttons {
+	padding: 3rem 0;
+	display: flex;
+	justify-content: space-between;
+}
+
+#translate {
+	padding: 1rem 0;
+	width: 70%;
+}
+
+#switch svg { width: 10rem }
+
+#switch svg path { transform-origin: center }
+
+#switch.switching svg path {
+	/* There should be js determining when this animation and button are allowed to be played again */
+	transition: transform 0.3s ease-in-out;
+	transform: rotate(-180deg);
+}
+
+.checkbox {
+	cursor: pointer;
+	position: relative;
+	padding-left: 6rem;
+	margin: 3rem 0;
+	font-size: 3.25rem;
+	font-weight: bold;	
+}
+
+.checkbox::before, .checkbox::after {
+	display: inline-block;
+	position: absolute;
+	top: -0.25rem;
+}
+
+.checkbox::before {
+	left: 0;
+	content: "";
+	width: 4.5rem;
+	height: 4.5rem;
+	border: 0.6rem solid var(--main-color);
+	border-radius: 0.25rem;
+}
+
+.checkbox::after {
+	left: 1rem;
+	content: "\2713";
+	color: white;
+}
+
+.checkbox.checked::before {	background-color: var(--main-color) }
+
+#code-sheet {
+	background-color: white;
+	font-family: Nunito, sans-serif;
+	font-size: 4rem;
+	font-weight: 900;
+	position: absolute;
+	top: 100vh;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	transition: top 0.5s ease-in-out;
+}
+
+.up {
+	cursor: pointer;
+	position: absolute;
+	font-weight: 700;
+	font-size: 10rem;
+	top: 0;
+	left: 50%;
+	transform: translateX(-50%) translateY(-50%) rotate(90deg);
+	line-height: 110%;
+	padding-left: 2.2rem;
+	color: white;
+	width: 12rem;
+	height: 12rem;
+	background-color: var(--main-color);
+	border-radius: 50%;
+	z-index: -1;
+}
+
+.up:hover { animation: bounce 0.5s ease-in-out infinite alternate-reverse }
+
+#code-sheet::after {
+	content: "";
+	position: absolute;
+	top: 0;
+	left: 0;
+	background-color: white;
+	width: 100%;
+	height: 6rem;
+	z-index: -1;
+}
+
+.close {
+	cursor: pointer;
+	position: absolute;
+	font-size: 6rem;
+	top: 1.5rem;
+	right: 3rem;
+}
+
+.table {
+	display: flex;
+	justify-content: space-between;
+	padding: 3rem;
+	overflow-y: auto;
+	height: 95%;
+}
+
+.column {
+	display: inline-block;
+	width: 45%;
+}
+
+.row {
+	display: grid;
+	grid-template: 1fr/1fr 2fr;
+	gap: 2rem;
+	margin: 2rem 0;
+}
+
+.row div {
+	padding: 0 2rem;
+	box-shadow: 0 0 10px 2px #00000080;
+}
+
+.char {
+	text-align: center;
+	padding: none;
+}
+
+.morse {
+	font-size: 6rem;
+	font-family: monospace;
+	text-align: start;
+}
+
+@media(min-width: 1000px) {
+	button:hover::before {
+		left: 0;
+		width: 100%;
+		height: 200%;
+		border-radius: 0;
+	}
+	:root {
+		font-size: 30%;
+	}
+	body {
+		grid-template: 1fr 9fr/4fr 6fr;
+		grid-template-areas:
+		"header header"
+		"controls text";
+	}
+	header { grid-area: header }
+	.text { grid-area: text }
+	.controls {
+		grid-area: controls;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+	}
+	.buttons {
+	 margin-bottom: 15rem;
+	}
+	.buttons { width: 100% }
+	.checkboxes { display: inline-block; }
+	.checkbox { margin: 5rem 0 }
+	#code-sheet { width: 40%; }
+}
+
+@keyframes bounce {
+	100% { padding-left: 1rem }
+}
