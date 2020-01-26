@@ -6,9 +6,19 @@ const morseIn = document.querySelector("#input-morse");
 const engIn = document.querySelector("#input-english");
 const engOut = document.querySelector("#output-english");
 
-const slashSep = document.querySelector("#slash-sep");
-const unChars = document.querySelector("#unknown-chars");
-const extraSpaces = document.querySelector("#extra-spaces");
+const slashSep = document.querySelector("#slashSep");
+const unChars = document.querySelector("#unChars");
+const extraSpaces = document.querySelector("#extraSpaces");
+
+if (localStorage.getItem("slashSep") === "true")
+	slashSep.classList.add("checked")
+if (localStorage.getItem("unChars") === "true")
+	unChars.classList.add("checked")
+if (localStorage.getItem("extraSpaces") === "true")
+	extraSpaces.classList.add("checked")
+
+if (localStorage.getItem("rotated") === "true")
+	document.querySelector(".card").classList.add("rotated");
 
 const morse = {
 	"a": ".-",
@@ -25,7 +35,7 @@ const morse = {
 	"l": ".-..",
 	"m": "--",
 	"n": "-.",
-	"o": "-.",
+	"o": "---",
 	"p": ".--.",
 	"q": "--.-",
 	"r": ".-.",
@@ -87,6 +97,7 @@ function checked(element) {
 switchBtn.addEventListener("click", () => {
 	switchBtn.classList.add("switching");
 	document.querySelector(".card").classList.toggle("rotated");
+	localStorage.setItem("rotated", document.querySelector(".card").classList.contains("rotated"))
 	setTimeout(() => {
 		switchBtn.classList.remove("switching");
 	}, 1000);
@@ -102,13 +113,14 @@ document.querySelector(".close").addEventListener("click", () => {
 
 function check(e) {
 	e.target.classList.toggle("checked");
+	localStorage.setItem(e.target.id, checked(e.target));
 }
 
 for (let c of document.querySelectorAll(".checkbox")) {
 	c.addEventListener("click", check);
 }
 
-document.querySelector("#copy-morse").addEventListener("click", function() {
+document.querySelector("#copy-morse").addEventListener("click", function () {
 	if (morseOut.textContent !== "") {
 		morseOut.select();
 		morseOut.setSelectionRange(0, 99999);
@@ -123,7 +135,7 @@ document.querySelector("#copy-morse").addEventListener("click", function() {
 	}
 });
 
-document.querySelector("#copy-english").addEventListener("click", function() {
+document.querySelector("#copy-english").addEventListener("click", function () {
 	if (engOut.textContent !== "") {
 		engOut.select();
 		engOut.setSelectionRange(0, 99999);
@@ -146,31 +158,38 @@ document.querySelector("#translate").addEventListener("click", () => {
 	// if the side with English to morse is facing forwards
 	if (document.querySelector(".card").classList.contains("rotated")) {
 		morseOut.textContent = "";
-		for (let i of engIn.value.toLowerCase()) {
-			if (i === " ")
+		for (let i of engIn.value.trim().toLowerCase()) {
+			if (i === " ") {
+				if (checked(extraSpaces))
+					continue;
 				morseOut.textContent += checked(slashSep) ? "/ " : "  ";
+			}
 			else {
 				if (morse[i] === undefined) {
 					if (checked(unChars))
 						morseOut.textContent += "# ";
 					else continue;
 				}
-				else morseOut.textContent += spaced(morse[i], checked(extraSpaces)) + " ";
+				else morseOut.textContent += spaced(morse[i], checked(extraSpaces)) +
+				(checked(extraSpaces) ? "   " : " ");
 			}
 		}
+		morseOut.textContent = morseOut.textContent.trim();
 	}
 	// if the side with morse to english is facing forwards
 	else {
 		engOut.textContent = "";
 		let wordSep = checked(slashSep) ? " / " : "   ";
-		let words = morseIn.value.split(wordSep).map((e) => e.split(" "));
+		let words = morseIn.value.trim().split(wordSep);
+		if (checked(extraSpaces))
+			words = words.map((e) => e.replace(/\s/g, ""));
+		words = words.map((e) => e.split(" "));
 		for (let word of words) {
 			for (let char of word) {
 				engOut.textContent += chars[char] === undefined ? (checked(unChars) ? "# " : "") : chars[char];
 			}
 			engOut.textContent += " ";
 		}
+		engOut.textContent = engOut.textContent.trim();
 	}
 })
-
-// Store settings and rotation in localstorage
