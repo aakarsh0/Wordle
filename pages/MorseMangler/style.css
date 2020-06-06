@@ -19,7 +19,7 @@ body {
 	height: 100%;
 	display: grid;
 	grid-template: 1fr 6fr 3fr/1fr;
-	overflow-y: hidden;
+	overflow: hidden;
 }
 
 header {
