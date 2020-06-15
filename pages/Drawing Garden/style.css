@@ -1,0 +1,41 @@
+*, *::before, *::after {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	font-size: 10px;
+}
+
+body {
+	background-image: linear-gradient(135deg, #6e3a0d, #a57122);
+	padding: 3rem;
+	height: 100vh;
+	display: flex;
+}
+
+main {
+	display: flex;
+	flex-direction: column;
+	margin: auto;
+}
+
+.row {
+	margin: 0 auto;
+}
+
+.seed {
+	cursor: pointer;
+	user-select: none;
+	display: inline-block;
+	font-family: serif;
+	font-size: 3.1rem;
+	width: 40px;
+	margin: 0 2.5px;
+	height: 45px;
+}
+
+.hidden {
+	visibility: hidden;
+}
