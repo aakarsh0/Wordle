@@ -1,3 +1,25 @@
+const emojis = ["🐍", "🦎", "🐜", "🐝", "🦗", "🐛", "🐞", "🐌", "🦋", "🌱", "🌲", "🌹", "🌸", "💐",
+ "🥕", "🍓", "🍅", "🍒", "🍄", "🌺", "🌻", "🌼", "🌷", "🥀", "🌳", "🌴", "🌵", "🌾", "🌿", "🍀",
+ "🍃", "🐀", "🦔", "🐇", "🕷"];
+
+const time = [0, 0, 0, 0];
+const timer = setInterval(() => {
+	time[0] = (time[0] + 1) % 100;
+	if (time[0] == 0) {
+		time[1] = (time[1] + 1) % 60;
+		if (time[1] == 0) {
+			time[2] = (time[2] + 1) % 60;
+			if (time[2] == 0) {
+				time[3] = (time[3] + 1) % 60;
+			}
+		}
+	}
+}, 10);
+const main = document.querySelector("main");
+const notice = document.querySelector(".notice");
+
+let remainingSeeds = 0;
+
 /**
  * Generate a random integer between two values.
  * @param {number} lower - The lower bound, inclusive
@@ -6,6 +28,34 @@
 function randInt(lower, upper) {
 	return Math.round(Math.random() * ((upper-1) - lower) + lower);
 }
+
+/**
+ * Retrieve the numeric value from a string containing a value and px
+ * @param {string} value - The string containing the value 
+ */
+function value(value) {
+	return Number(value.slice(0, -2));
+}
+
+const touched = (function(e) {
+	const units = ["milisecond", "second", "minute", "hour"];
+	const display = notice.querySelector(".wasted-time");
+	return (e) => {
+		if (e == "〰") {
+			if (--remainingSeeds <= 0) {
+				clearInterval(timer);
+				let result = "";
+				for (let i = 1; i< time.length; ++i) {
+					if (time[i] > 0) {
+						result += `${time[i]} ${units[i] + ((time[i] > 1) ? "s" : "")} `;
+					}
+				}
+				display.textContent = result;
+				notice.style.right = 0;
+			}
+		}
+	}
+})();
 
 const setIcon = (() => {
 	const favicon = document.querySelector("link[rel='icon']");
@@ -27,33 +77,40 @@ function createSeed() {
 	seed.className = "seed";
 	seed.addEventListener("mouseover", function(e) {
 		let emoji = emojis[randInt(0, emojis.length)];
+		touched(this.textContent);
 		this.textContent = emoji;
 		setIcon(emoji);
 	});
+	++remainingSeeds;
 	return seed;
 }
 
 function createRow(seedSize, pageWidth) {
 	let row = document.createElement("div");
 	row.classList.add("row");
-	console.log(`pageWidth: ${pageWidth}\nseedWidth: ${seedSize}`)
 	for (let i = 0; i < Math.floor(pageWidth / seedSize); ++i) {
 		row.appendChild(createSeed());
 	}
 	return row;
 }
 
-const emojis = ["🐍", "🦎", "🐜", "🐝", "🦗", "🐛", "🐞", "🐌", "🦋", "🌱", "🌲", "🌹", "🌸", "💐",
- "🥕", "🍓", "🍅", "🍒", "🍄", "🌺", "🌻", "🌼", "🌷", "🥀", "🌳", "🌴", "🌵", "🌾", "🌿", "🍀",
- "🍁", "🍃", "🐀", "🦔", "🐇", "🕷"];
+document.querySelector(".close").addEventListener("click", (e) => {
+	e.target.parentElement.style.right = "-150%";
+});
 
-const bodyPadding = 30;
-const seedSize = 45;
+const seedSize = (() => {
+	let temp = createSeed();
+	temp.style.opacity = 0;
+	document.body.appendChild(temp);
+	let result = temp.getBoundingClientRect().width + value(getComputedStyle(temp)["margin-left"])*2;
+	--remainingSeeds;
+	temp.remove();
+	return result;
+})();
+const bodyPadding = value(getComputedStyle(document.body)["padding-left"]);
 const {width, height} = document.body.getBoundingClientRect();
-const main = document.querySelector("main");
 
 setIcon(emojis[randInt(0, emojis.length)]);
-
 
 for (let i = 0; i < Math.floor((height - 2*bodyPadding) / seedSize); ++i) {
 	main.appendChild(createRow(seedSize, width - 3*bodyPadding));
