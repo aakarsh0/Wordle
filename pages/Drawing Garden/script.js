@@ -75,7 +75,7 @@ function createSeed() {
 	let seed = document.createElement("span");
 	seed.textContent = "〰";
 	seed.className = "seed";
-	seed.addEventListener("mouseover", function(e) {
+	seed.addEventListener("mouseenter", function(e) {
 		let emoji = emojis[randInt(0, emojis.length)];
 		touched(this.textContent);
 		this.textContent = emoji;

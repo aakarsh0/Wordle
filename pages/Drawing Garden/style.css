@@ -26,7 +26,6 @@ main {
 	display: flex;
 	flex-direction: column;
 	margin: auto;
-	overflow: hidden;
 }
 
 .row {
@@ -51,7 +50,7 @@ main {
 
 .notice {
 	font-size: 1.4rem;
-	position: absolute;
+	position: fixed;
 	right: -150%;
 	bottom: 10%;
 	background-color: var(--brown-1);
