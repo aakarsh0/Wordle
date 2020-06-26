@@ -37,9 +37,9 @@ main {
 	user-select: none;
 	display: inline-block;
 	font-family: serif;
-	font-size: 2.8rem;
-	width: 43px;
-	margin: 0 1px;
+	font-size: 3rem;
+	width: 45px;
+	margin: 0 0;
 	height: 45px;
 	text-align: center;
 }

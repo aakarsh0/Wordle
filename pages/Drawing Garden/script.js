@@ -71,16 +71,19 @@ const setIcon = (() => {
 	};
 })();
 
+function ontouch(e) {
+	let emoji = emojis[randInt(0, emojis.length)];
+	touched(e.target.textContent);
+	e.target.textContent = emoji;
+	setIcon(emoji);
+}
+
 function createSeed() {
 	let seed = document.createElement("span");
 	seed.textContent = "〰";
 	seed.className = "seed";
-	seed.addEventListener("mouseenter", function(e) {
-		let emoji = emojis[randInt(0, emojis.length)];
-		touched(this.textContent);
-		this.textContent = emoji;
-		setIcon(emoji);
-	});
+	seed.addEventListener("mouseenter", ontouch);
+	seed.addEventListener("touchmove", ontouch);
 	++remainingSeeds;
 	return seed;
 }
