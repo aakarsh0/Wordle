@@ -83,7 +83,7 @@ function createSeed() {
 	seed.textContent = "〰";
 	seed.className = "seed";
 	seed.addEventListener("mouseenter", ontouch);
-	seed.addEventListener("touchmove", ontouch);
+	seed.addEventListener("click", ontouch);
 	++remainingSeeds;
 	return seed;
 }
@@ -118,3 +118,7 @@ setIcon(emojis[randInt(0, emojis.length)]);
 for (let i = 0; i < Math.floor((height - 2*bodyPadding) / seedSize); ++i) {
 	main.appendChild(createRow(seedSize, width - 3*bodyPadding));
 }
+
+document.addEventListener("touchmove", (e) => {
+	document.elementFromPoint(e.touches[0].clientX, e.touches[0].clientY).click();
+})
