@@ -1,0 +1,8 @@
+Add option to compare in order and compare from lowest to highest
+(or option to set compare parameters)
+
+Make sure mobile mode works
+
+Add ability to check where each chest is on the map
+add option to see where all the chests are on the map
+add option to switch loot run positions

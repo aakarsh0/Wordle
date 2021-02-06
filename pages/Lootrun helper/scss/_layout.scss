@@ -1,0 +1,78 @@
+body {
+	display: grid;
+	grid-template-columns: 4fr 1.5fr;
+	min-height: 100vh;
+	font-size: 1.5rem;
+	font-family: sans-serif;
+	background-color: grey;
+}
+
+main {
+	height: 100vh;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 1rem;
+	padding: 1rem;
+	.colcont {
+		background-color: white;
+		overflow: hidden;
+		position: relative;
+		border-radius: 0.2rem;
+		font-size: 2rem;
+	}
+	.col {
+		overflow: auto;
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		padding-bottom: 4rem;
+	} 
+}
+
+.indicator {
+	background-color: #000;
+	color: #fff;
+	position: absolute;
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	height: 4rem;
+	padding: 1rem;
+	bottom: 0;
+	left: 0;
+	right: 0;
+}
+
+.chest {
+	border-radius: 0.2rem;
+	height: 4rem;
+	background-color: #b18268;
+	color: white;
+	display: grid;
+	grid-template-columns: 1fr repeat(3, 2fr);
+	padding: 1rem;
+	margin: 0.5rem;
+	box-shadow: 0.25rem 0.25rem 0.4rem rgba(0, 0, 0, 0.5);
+	&.both {
+		background-color: rgb(79, 155, 79);
+	}
+	&.empty {
+		background-color: transparent;
+		box-shadow: none;
+	}
+	img {
+		height: 2.5rem;
+	}
+	.axis {
+		display: inline-block;
+		text-align: center;
+	}
+}
+
+@media (orientation: portrait) {
+	body {
+		grid-template-columns: none;
+		grid-template-rows: 100vw 1.5fr;
+	}
+}
