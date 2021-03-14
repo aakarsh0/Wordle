@@ -1,0 +1,29 @@
+body {
+	display: grid;
+	grid-template-columns: 4fr 1.5fr;
+	min-height: 100vh;
+	font-size: 1.5rem;
+	font-family: sans-serif;
+	background-color: grey;
+}
+
+main {
+	height: 100vh;
+	padding: 1rem;
+}
+
+.main {
+	border-radius: var(--border-rad);
+	overflow: none;
+	display: none;
+	&.activeTab {
+		display: block;
+	}
+}
+
+@media (orientation: portrait) {
+	body {
+		grid-template-columns: none;
+		grid-template-rows: 100vw 1.5fr;
+	}
+}

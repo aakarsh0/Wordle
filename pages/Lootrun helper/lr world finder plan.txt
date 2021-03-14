@@ -1,0 +1,12 @@
+Input world number and output when it was last looted, uptime, and where it was last looted
+
+1st iteration:
+Paste in info from lootrun bot and motos bot
+
+2nd iteration:
+List worlds that are up but not on the lr bot
+Input desired lr through a drop down select (Ocean, tromsDernal, darkKander, LightForest, cotl, rodo, sky, void, se)
+Parse the locations of the worlds and show which are the best for desired lr
+Set min up time
+set max up time
+set min time since last lr

@@ -13,8 +13,26 @@ const missing2 = second.parentNode.querySelector(".missing");
 
 let LR1_chests, LR2_chests;
 
-compareBtn.addEventListener("click", compare);
-resetBtn.addEventListener("click", reset);
+// ############################################# Tab Clicked code ############################################
+for (let i of document.querySelectorAll(".tab")) {
+	i.addEventListener("click", selectTab);
+}
+
+function selectTab(e) {
+	let tabFor = e.target.getAttribute("for");
+	if (!e.target.classList.contains("activeTab")) {
+		console.log(tabFor);
+		let previous = document.querySelector(".tab.activeTab").getAttribute("for");
+		// previous.classList.remove("activeTab");
+		// e.target.classList.add("activeTab");
+		for (let i of document.querySelectorAll(`.${previous}`)) {
+			i.classList.remove("activeTab");
+		}
+		for (let i of document.querySelectorAll(`.${tabFor}`)) {
+			i.classList.add("activeTab");
+		}
+	}
+}
 
 const makeChest = (() => {
 	function makeCoord(axis, coord) {
@@ -43,7 +61,7 @@ const makeChest = (() => {
 		}
 		return chest;
 	}
-})()
+})();
 
 const sortFn = (a, b) => {
 	if (a.x != b.x) {

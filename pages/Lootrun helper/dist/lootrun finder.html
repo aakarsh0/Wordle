@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<script src="js/lrFinder.js" defer></script>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<style>
+		textarea {
+			resize: none;
+			width: 20rem;
+			height: 10rem;
+		}
+
+		.button {
+			cursor: pointer;
+			font-size: 2rem;
+			background-color: #4fc0ba;
+			text-align: center;
+			font-family: Verdana, Geneva, Tahoma, sans-serif;
+		}
+	</style>
+	<title>Lootrun finder</title>
+</head>
+	<body>
+		<textarea name="uptimes" id="uptimes"></textarea>
+		<textarea name="lootruns" id="looted"></textarea>
+		<input type="number" id="world-number">
+		<div id="check" class="button" onclick="check()">check</div>
+		<div>
+			<h3>Unlooted in the last 8 hours:</h3>
+			<div id="unlooted"></div>
+		</div>
+	</body>
+</html>

@@ -1,23 +1,13 @@
-body {
-	display: grid;
-	grid-template-columns: 4fr 1.5fr;
-	min-height: 100vh;
-	font-size: 1.5rem;
-	font-family: sans-serif;
-	background-color: grey;
-}
-
-main {
-	height: 100vh;
-	display: grid;
+.main.compareTab {
+	height: 100%;
+	display: none;
 	grid-template-columns: 1fr 1fr;
 	gap: 1rem;
-	padding: 1rem;
 	.colcont {
-		background-color: white;
+		background-color: var(--bg-color);
 		overflow: hidden;
 		position: relative;
-		border-radius: 0.2rem;
+		border-radius: var(--border-rad);
 		font-size: 2rem;
 	}
 	.col {
@@ -28,7 +18,10 @@ main {
 		left: 0;
 		right: 0;
 		padding-bottom: 4rem;
-	} 
+	}
+	&.activeTab {
+		display: grid;
+	}
 }
 
 .indicator {
@@ -45,7 +38,7 @@ main {
 }
 
 .chest {
-	border-radius: 0.2rem;
+	border-radius: var(--border-rad);
 	height: 4rem;
 	background-color: #b18268;
 	color: white;
@@ -67,12 +60,5 @@ main {
 	.axis {
 		display: inline-block;
 		text-align: center;
-	}
-}
-
-@media (orientation: portrait) {
-	body {
-		grid-template-columns: none;
-		grid-template-rows: 100vw 1.5fr;
 	}
 }
