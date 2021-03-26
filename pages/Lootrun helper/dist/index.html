@@ -2,17 +2,83 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="shortcut icon" href="img/favicon.png" type="image/x-icon">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="css/master.css">
 	<script src="js/script.js" defer></script>
+	<script src="js/compareTab.js" defer></script>
+	<script src="js/findTab.js" defer></script>
+	<script src="js/world.js" defer></script>
 	<title>Loot run helper</title>
 </head>
 	<body>
-		<main>
-			<div class="main findTab">
+		<main id="data-window">
+			<div class="main findTab activeTab">
+				<div id="worlds" class="ftSection">
+					<header>
+						<span>WC</span>
+						<span>Uptime</span>
+						<span>Looted</span>
+						<span>Area(s)</span>
+						<span></span>
+					</header>
+					<main id="world-list">
+						<!-- <div class="world" wc="1">
+							<span>1</span>
+							<span>4 h 5 m</span>
+							<span>1 h 23 m</span>
+							<span>ocean sky void rodo cotl rol l/k</span>
+							<span class="copy-world" title="copy planner bot command">
+								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 131" fill="none">
+									<path d="M16 49a4 4 0 0 1 4-4h50a4 4 0 1 1 0 8H20a4 4 0 0 1-4-4zm4 15a4 4 0 1 0 0 8h59a4 4 0 1 0 0-8H20zm-4 23a4 4 0 0 1 4-4h30a4 4 0 1 1 0 8H20a4 4 0 0 1-4-4zm4 15a4 4 0 1 0 0 8h50a4 4 0 1 0 0-8H20z"/>
+									<path fill-rule="evenodd" d="M25 4a4 4 0 0 1 4-4h41a4 4 0 0 1 4 4v7h16c5.523 0 10 4.477 10 10v100a10 10 0 0 1-10 10H10a10 10 0 0 1-10-10V21c0-5.523 4.477-10 10-10h15V4zm8 18V8h33v14H33zm41-3v7a4 4 0 0 1-4 4H29a4 4 0 0 1-4-4v-7H10a2 2 0 0 0-2 2v100a2 2 0 0 0 2 2h80a2 2 0 0 0 2-2V21a2 2 0 0 0-2-2H74z"/>
+								</svg>
+							</span>
+							<span class="delete-world">×</span>
+						</div> -->
+					</main>
+				</div>
+				<div id="uptimes" class="ftSection flipper">
+					<div class="front">
+						<textarea id="uptimes-text" placeholder="paste the uptimes from the moto-bot here"></textarea>
+					</div>
+					<div class="back">
+						<header>
+							<span>WC</span>
+							<span>Uptime</span>
+						</header>
+						<main id="up-list">
 
+						</main>
+					</div>
+				</div>
+				<div id="looted" class="ftSection flipper">
+					<div class="front">
+						<textarea id="looted-text" placeholder="paste the data from The Planner bot here"></textarea>
+					</div>
+					<div class="back">
+						<header>
+							<span>WC</span>
+							<span>Looted</span>
+							<span>Area(s)</span>
+						</header>
+						<main id="looted-list">
+							
+						</main>
+					</div>
+				</div>
+				<div id="time-since" class="ftSection">
+					Time since data input:
+					<span>00:00:00</span>
+				</div>
+				<div id="parse" class="button" disabled="false" onclick="parseClicked()">
+					Parse Data
+				</div>
+				<div id="re-input" class="button" disabled="true" onclick="reInputClicked()">
+					Re-Input Data
+				</div>
 			</div>
-			<div class="main compareTab activeTab">
+			<div class="main compareTab">
 				<div class="colcont">
 					<div class="col" id="first">
 					</div>
@@ -36,20 +102,20 @@
 		</main>
 		<aside>
 			<div class="tabs">
-				<div for="findTab" class="tab findTab">Find</div>
-				<div for="compareTab" class="tab compareTab activeTab">Compare</div>
+				<div for="findTab" class="tab findTab activeTab">Find</div>
+				<div for="compareTab" class="tab compareTab">Compare</div>
 				<div for="mapTab" class="tab mapTab">Map</div>
 			</div>
-			<div class="menu findTab">
+			<div class="menu findTab activeTab">
 				find
 			</div>
-			<div class="menu compareTab activeTab">
+			<div class="menu compareTab">
 				<form id="uploads">
 				<input type="file" id="lr_one" accept=".json" class="upload">
 				<label for="lr_one" class="lr-label">
 					<div class="overlay"></div>
 					<h2>Upload lootrun</h2>
-					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 120" fill="none"  xmlns:v="https://vecta.io/nano">
+					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 120" fill="none">
 						<path class="outline" d="M10 4h58.516L96 31.484V110a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6z" stroke="#d8d8d8" stroke-width="8"/>
 						<path fill-rule="evenodd" d="M0 50h100v50H0V50zm24.894 14.172h-5.127v14.634c0 .957-.195 1.704-.586 2.241-.381.527-.928.791-1.641.791-.791 0-1.357-.22-1.699-.659-.332-.439-.498-1.148-.498-2.124h-5.156c0 2.148.645 3.809 1.934 4.981s3.096 1.758 5.42 1.758c1.387 0 2.642-.293 3.765-.879a6.39 6.39 0 0 0 2.637-2.476c.635-1.065.952-2.275.952-3.633V64.172zm14.197 13.901c.537.42.806 1.006.806 1.758 0 .664-.249 1.182-.747 1.553-.488.361-1.157.542-2.007.542-1.328 0-2.29-.269-2.886-.806-.586-.547-.879-1.392-.879-2.534h-5.156c0 1.406.352 2.651 1.055 3.735.713 1.074 1.768 1.924 3.164 2.549 1.406.615 2.974.923 4.702.923 2.451 0 4.38-.532 5.786-1.597s2.109-2.529 2.109-4.394c0-2.334-1.152-4.165-3.457-5.493-.947-.547-2.158-1.055-3.633-1.523-1.475-.479-2.505-.937-3.091-1.377-.586-.449-.879-.947-.879-1.494 0-.625.264-1.138.791-1.538.537-.41 1.265-.615 2.183-.615.908 0 1.626.239 2.153.718.537.478.806 1.152.806 2.022h5.127c0-1.299-.337-2.451-1.011-3.457-.674-1.016-1.621-1.797-2.842-2.344-1.211-.547-2.583-.82-4.116-.82-1.572 0-2.988.254-4.248.762-1.26.498-2.236 1.201-2.93 2.109-.684.898-1.025 1.939-1.025 3.12 0 2.373 1.382 4.238 4.145 5.596.85.42 1.943.855 3.281 1.304s2.27.884 2.798 1.304zm26.238 2.725c.772-1.602 1.157-3.442 1.157-5.522v-.982c-.01-2.051-.41-3.867-1.201-5.449-.781-1.592-1.88-2.817-3.296-3.677s-3.027-1.289-4.834-1.289c-1.826 0-3.457.435-4.893 1.304-1.426.869-2.524 2.105-3.296 3.706-.762 1.592-1.143 3.433-1.143 5.522v1.201c.039 2.012.449 3.794 1.23 5.347.791 1.553 1.89 2.749 3.296 3.589 1.406.83 3.018 1.245 4.834 1.245s3.433-.43 4.849-1.289c1.426-.869 2.524-2.105 3.296-3.706zm-5.142-11.235c.713 1.094 1.069 2.7 1.069 4.819v.981c-.01 2.07-.366 3.657-1.069 4.761s-1.704 1.655-3.003 1.655c-1.367 0-2.398-.562-3.091-1.685s-1.04-2.73-1.04-4.819l.015-1.567c.146-3.867 1.509-5.801 4.087-5.801 1.318 0 2.329.552 3.032 1.655zm22.4 15.938H87.7V64.172h-5.127v13.272l-7.544-13.272h-5.142V85.5h5.142V72.229L82.588 85.5z" fill="#00c562"/>
 					</svg>				
@@ -59,7 +125,7 @@
 				<label for="lr_two" class="lr-label">
 					<div class="overlay"></div>
 					<h2>Upload lootrun</h2>
-					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 120" fill="none"  xmlns:v="https://vecta.io/nano">
+					<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 120" fill="none">
 						<path class="outline" d="M10 4h58.516L96 31.484V110a6 6 0 0 1-6 6H10a6 6 0 0 1-6-6V10a6 6 0 0 1 6-6z" stroke="#d8d8d8" stroke-width="8"/>
 						<path fill-rule="evenodd" d="M0 50h100v50H0V50zm24.894 14.172h-5.127v14.634c0 .957-.195 1.704-.586 2.241-.381.527-.928.791-1.641.791-.791 0-1.357-.22-1.699-.659-.332-.439-.498-1.148-.498-2.124h-5.156c0 2.148.645 3.809 1.934 4.981s3.096 1.758 5.42 1.758c1.387 0 2.642-.293 3.765-.879a6.39 6.39 0 0 0 2.637-2.476c.635-1.065.952-2.275.952-3.633V64.172zm14.197 13.901c.537.42.806 1.006.806 1.758 0 .664-.249 1.182-.747 1.553-.488.361-1.157.542-2.007.542-1.328 0-2.29-.269-2.886-.806-.586-.547-.879-1.392-.879-2.534h-5.156c0 1.406.352 2.651 1.055 3.735.713 1.074 1.768 1.924 3.164 2.549 1.406.615 2.974.923 4.702.923 2.451 0 4.38-.532 5.786-1.597s2.109-2.529 2.109-4.394c0-2.334-1.152-4.165-3.457-5.493-.947-.547-2.158-1.055-3.633-1.523-1.475-.479-2.505-.937-3.091-1.377-.586-.449-.879-.947-.879-1.494 0-.625.264-1.138.791-1.538.537-.41 1.265-.615 2.183-.615.908 0 1.626.239 2.153.718.537.478.806 1.152.806 2.022h5.127c0-1.299-.337-2.451-1.011-3.457-.674-1.016-1.621-1.797-2.842-2.344-1.211-.547-2.583-.82-4.116-.82-1.572 0-2.988.254-4.248.762-1.26.498-2.236 1.201-2.93 2.109-.684.898-1.025 1.939-1.025 3.12 0 2.373 1.382 4.238 4.145 5.596.85.42 1.943.855 3.281 1.304s2.27.884 2.798 1.304zm26.238 2.725c.772-1.602 1.157-3.442 1.157-5.522v-.982c-.01-2.051-.41-3.867-1.201-5.449-.781-1.592-1.88-2.817-3.296-3.677s-3.027-1.289-4.834-1.289c-1.826 0-3.457.435-4.893 1.304-1.426.869-2.524 2.105-3.296 3.706-.762 1.592-1.143 3.433-1.143 5.522v1.201c.039 2.012.449 3.794 1.23 5.347.791 1.553 1.89 2.749 3.296 3.589 1.406.83 3.018 1.245 4.834 1.245s3.433-.43 4.849-1.289c1.426-.869 2.524-2.105 3.296-3.706zm-5.142-11.235c.713 1.094 1.069 2.7 1.069 4.819v.981c-.01 2.07-.366 3.657-1.069 4.761s-1.704 1.655-3.003 1.655c-1.367 0-2.398-.562-3.091-1.685s-1.04-2.73-1.04-4.819l.015-1.567c.146-3.867 1.509-5.801 4.087-5.801 1.318 0 2.329.552 3.032 1.655zm22.4 15.938H87.7V64.172h-5.127v13.272l-7.544-13.272h-5.142V85.5h5.142V72.229L82.588 85.5z" fill="#00c562"/>
 					</svg>				
@@ -79,7 +145,7 @@
 				</div>
 			</div>
 			<div class="menu mapTab">
-				map
+				Lootrun map coming soon
 			</div>
 		</aside>
 	</body>

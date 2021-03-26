@@ -6,3 +6,14 @@ Make sure mobile mode works
 Add ability to check where each chest is on the map
 add option to see where all the chests are on the map
 add option to switch loot run positions
+
+RESOURCES
+ Nearest neighbour canvas image scaling: https://itch.io/jam/lowrezjam2016/topic/19730/solved-html5-canvas-scaling-nearest-neighbor-no-blur
+ Canvas Zoom: https://duckduckgo.com/?t=ffab&q=html+canvas+zoom&ia=web
+ Javascript map library: https://leafletjs.com/
+
+ Write parselootedstring and createlootedelement in world.js
+
+ put all the code in closures so it can't be accessed & to prevent namespace issues?
+
+ add restore deleted worlds button to world list header

@@ -42,12 +42,24 @@ aside {
 }
 
 .button {
-	display: block;
+	display: grid;
+	place-items: center;
 	user-select: none;
+	cursor: pointer;
 	font-weight: 600;
 	padding: 1rem;
 	border-radius: 0.5rem;
 	text-align: center;
 	width: auto;
 	margin: var(--menu-margin);
+	&:active {
+		scale: 0.9;
+	}
+	&[disabled="true"] {
+		background-color: #535353 !important;
+		cursor: default !important;
+		&:active {
+			scale: none !important;
+		}
+	}
 }

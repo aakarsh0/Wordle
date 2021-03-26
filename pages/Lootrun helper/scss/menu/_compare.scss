@@ -1,15 +1,6 @@
 #compare {
 	background-color: teal;
 	color: white;
-	&:not([disabled="true"]) {
-		cursor: pointer;
-		&:active {
-			scale: 0.9;
-		}
-	}
-	&[disabled="true"] {
-		background-color: #535353;
-	}
 }
 
 #reset {
