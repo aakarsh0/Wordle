@@ -21,6 +21,8 @@ class World {
 			this.looted = false;
 		} else {
 			this.loot(worldString);
+			// in order for sort function to work words that are not up require an uptime
+			this.uptime = [0, 0];
 		}
 		this.upElement;
 		this.lootedElement;
@@ -82,6 +84,13 @@ class World {
 		this.lootedAreas = lootedString.substring(35);
 	}
 
+	fitsFilter(filter) {
+		let totalMinutes = this.uptime[0]*60 + this.uptime[1];
+		// console.log(filter);
+		// console.log(`filter min total minutes: ${filter.minTotalMinutes}\nworld total minutes: ${totalMinutes}\nworld: ${this}`);
+		return filter.minTotalMinutes <= totalMinutes && filter.maxTotalMinutes >= totalMinutes;
+	}
+
 	createUpElement(parent) {
 		let el = document.createElement("div");
 		el.classList.add("up-world");
@@ -101,6 +110,9 @@ class World {
 	createLootedElement(parent) {
 		let el = document.createElement("div");
 		el.classList.add("looted-world");
+		if (!this.up) {
+			el.classList.add("down");
+		}
 
 		let temp = document.createElement("span");
 		temp.textContent = this.wc;

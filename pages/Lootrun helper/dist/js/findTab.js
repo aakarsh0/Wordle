@@ -4,6 +4,7 @@ let worlds;
 
 function parseClicked() {
 	if (parseData.getAttribute("disabled") == "false") {
+		//todo Save filter preferances locally
 		// Parse data
 		worlds = processUptimes(uptimesText);
 		processLooted(lootedText, worlds);
@@ -21,7 +22,6 @@ function parseClicked() {
 		timer = setInterval(() => {
 			incrementTime(time);
 			updateTimeEl(time, timerEl);
-			// color timer if above specified interval
 		}, 1000);
 	}
 }
@@ -44,17 +44,6 @@ function reInputClicked() {
 		lootedText.value = "";
 	}
 }
-
-// document.querySelector(".delete-world").addEventListener("click", deleteWorldClicked);
-// function deleteWorldClicked(e) {
-// 	e.target.parentElement.remove();
-// }
-
-// document.querySelector(".copy-world").addEventListener("click", copyCommandClicked);
-// function copyCommandClicked(e) {
-// 	console.log(e.target.parentElement);
-// 	navigator.clipboard.writeText(`.cw ${e.target.parentElement.parentElement.getAttribute("wc")}`);
-// }
 
 // ############################################ Utility Functions ############################################
 function processUptimes(uptimes) {
@@ -82,13 +71,33 @@ function processLooted(looted, worlds) {
 	}
 }
 
-function listWorlds() {
-	for (let i in worlds) {
-		if (worlds[i].up) {
-			worlds[i].createWorldElement(worldList);
+const listWorlds = (() => {
+	function compareFn(a, b) {
+		aUp = a.uptime[0]*60 + a.uptime[1];
+		bUp = b.uptime[0]*60 + b.uptime[1]
+		if (a.looted !== b.looted) {
+			return a.looted - b.looted;
+		}
+		if (aUp !== bUp) {
+			return bUp - aUp;
+		}
+		// at this stage if a is looted so is b
+		else if (a.looted) {
+			return (b.lastLooted[0]*60 + b.lastLooted[1]) - (a.lastLooted[0]*60 + a.lastLooted[1]);
+		}
+		return 0;
+	}
+	return () => {
+		let worldArr = Object.values(worlds).sort(compareFn);
+		let upFilter = getUpTimeFilters();
+		console.log(upFilter);
+		for (let i of worldArr) {
+			if (i.up && i.fitsFilter(upFilter)) {
+				i.createWorldElement(worldList);
+			}
 		}
 	}
-}
+})();
 
 function incrementTime(time) {
 	if (time[2] < 59) {
@@ -97,10 +106,7 @@ function incrementTime(time) {
 	else {
 		time[2] = 0;
 		time[1] += 1;
-		if (time[1] < 59) {
-			time[1] += 1;
-		}
-		else {
+		if (time[1] === 59) {
 			time[1] = 0;
 			time[0] += 1;
 		}
@@ -118,4 +124,38 @@ function updateTimeEl(time, el) {
 		}
 	}
 	el.textContent = result.substr(0, result.length-1);
+	// Yellow warn when above 3 mins old, red warn when above 5 mins old
+	let minsSinceInput = time[0]*60 + time[1]
+	if (minsSinceInput >= 3) {
+		if (minsSinceInput >= 5) {
+			el.classList.add("warn-2");
+		}
+		el.classList.add("warn-1");
+	}
 }
+
+const getUpTimeFilters = (() => {
+	const minUpHours = document.querySelector("#min-up-hours");
+	const minUpMinutes = document.querySelector("#min-up-minutes");
+	const maxUpHours = document.querySelector("#max-up-hours");
+	const maxUpMinutes = document.querySelector("#max-up-minutes");
+	return () => {
+		let result = {
+			minTotalMinutes: 0,
+			maxTotalMinutes: 0
+		}
+		if (!isNaN(minUpHours.value) && minUpHours.value <= 9 && minUpHours.value >= 0) {
+			result.minTotalMinutes = Number(minUpHours.value*60);
+		}
+		if (!isNaN(minUpMinutes.value) && minUpMinutes.value <= 59 && minUpMinutes.value >= 0) {
+			result.minTotalMinutes += Number(minUpMinutes.value);
+		}
+		if (!isNaN(maxUpHours.value) && maxUpHours.value <= 9 && maxUpHours.value >= 0) {
+			result.maxTotalMinutes = Number(maxUpHours.value*60);
+		}
+		if (!isNaN(maxUpMinutes.value) && maxUpMinutes.value <= 59 && maxUpMinutes.value >= 0) {
+			result.maxTotalMinutes += Number(maxUpMinutes.value);
+		}
+		return result;
+	}
+})();

@@ -23,19 +23,6 @@
 						<span></span>
 					</header>
 					<main id="world-list">
-						<!-- <div class="world" wc="1">
-							<span>1</span>
-							<span>4 h 5 m</span>
-							<span>1 h 23 m</span>
-							<span>ocean sky void rodo cotl rol l/k</span>
-							<span class="copy-world" title="copy planner bot command">
-								<svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 131" fill="none">
-									<path d="M16 49a4 4 0 0 1 4-4h50a4 4 0 1 1 0 8H20a4 4 0 0 1-4-4zm4 15a4 4 0 1 0 0 8h59a4 4 0 1 0 0-8H20zm-4 23a4 4 0 0 1 4-4h30a4 4 0 1 1 0 8H20a4 4 0 0 1-4-4zm4 15a4 4 0 1 0 0 8h50a4 4 0 1 0 0-8H20z"/>
-									<path fill-rule="evenodd" d="M25 4a4 4 0 0 1 4-4h41a4 4 0 0 1 4 4v7h16c5.523 0 10 4.477 10 10v100a10 10 0 0 1-10 10H10a10 10 0 0 1-10-10V21c0-5.523 4.477-10 10-10h15V4zm8 18V8h33v14H33zm41-3v7a4 4 0 0 1-4 4H29a4 4 0 0 1-4-4v-7H10a2 2 0 0 0-2 2v100a2 2 0 0 0 2 2h80a2 2 0 0 0 2-2V21a2 2 0 0 0-2-2H74z"/>
-								</svg>
-							</span>
-							<span class="delete-world">×</span>
-						</div> -->
 					</main>
 				</div>
 				<div id="uptimes" class="ftSection flipper">
@@ -107,7 +94,31 @@
 				<div for="mapTab" class="tab mapTab">Map</div>
 			</div>
 			<div class="menu findTab activeTab">
-				find
+				<div id="up-filter">
+					<div class="time-filter">
+						<h3>Min Uptime</h3>
+						<input id="min-up-hours" type="number" min="0" max="9" value="1">
+						<span>H</span>
+						<input id="min-up-minutes" type="number" min="0" max="59" value="30">
+						<span>M</span>
+					</div>
+					<div class="time-filter">
+						<h3>Max Uptime</h3>
+						<input id="max-up-hours" type="number" min="0" max="9" value="5">
+						<span>H</span>
+						<input id="max-up-minutes" type="number" min="0" max="59" value="30">
+						<span>M</span>
+					</div>
+				</div>
+				<div class="looted-filter time-filter">
+					<div class="time-filter">
+						<h3>Min time since looted</h3>
+						<input id="hours-since-looted" type="number" min="0" max="9" value="1">
+						<span>H</span>
+						<input id="minutes-since-looted" type="number" min="0" max="59" value="30">
+						<span>M</span>
+					</div>
+				</div>
 			</div>
 			<div class="menu compareTab">
 				<form id="uploads">

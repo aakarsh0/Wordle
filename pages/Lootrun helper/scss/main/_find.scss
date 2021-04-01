@@ -98,6 +98,10 @@
 	header, .looted-world {
 		grid-template-columns: 1fr 2fr 4fr;
 	}
+	.down {
+		background-color: var(--red);
+		color: var(--bg-color);
+	}
 }
 
 .up-world, .looted-world {
@@ -163,6 +167,13 @@
 	text-align: center;
 	span {
 		font-family: 'Courier New', Courier, monospace;
+		font-weight: bold;
+		&.warn-1 {
+			color: var(--orange);
+			&.warn-2 {
+				color: var(--red);
+			}
+		}
 	}
 }
 

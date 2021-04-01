@@ -29,7 +29,7 @@ const makeChest = (() => {
 	}
 })();
 
-const sortFn = (a, b) => {
+const compareFn = (a, b) => {
 	if (a.x != b.x) {
 		return a.x - b.x;
 	} else if (a.z != b.z) {
@@ -60,8 +60,8 @@ async function compare() {
 		LR1_chests = await file1.files[0].text().then((val) => JSON.parse(val).chests);
 		// parse json from file2
 		LR2_chests = await file2.files[0].text().then((val) => JSON.parse(val).chests);
-		LR1_chests.sort(sortFn);
-		LR2_chests.sort(sortFn);
+		LR1_chests.sort(compareFn);
+		LR2_chests.sort(compareFn);
 		chests1.textContent = `Chests: ${LR1_chests.length}`;
 		chests2.textContent = `Chests: ${LR2_chests.length}`;
 		let comp, missing = [0, 0];
@@ -77,7 +77,7 @@ async function compare() {
 				++missing[1];
 			}
 			else {
-				comp = sortFn(LR1_chests[0], LR2_chests[0]);
+				comp = compareFn(LR1_chests[0], LR2_chests[0]);
 				if (comp == 0) {
 					first.appendChild(makeChest(LR1_chests.shift(), true));
 					second.appendChild(makeChest(LR2_chests.shift(), true));
