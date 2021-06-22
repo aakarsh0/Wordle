@@ -42,6 +42,7 @@ function reInputClicked() {
 		// Clear text area data
 		uptimesText.value = "";
 		lootedText.value = "";
+		worldList.innerText = "";
 	}
 }
 
@@ -127,10 +128,14 @@ function updateTimeEl(time, el) {
 	// Yellow warn when above 3 mins old, red warn when above 5 mins old
 	let minsSinceInput = time[0]*60 + time[1]
 	if (minsSinceInput >= 3) {
+		el.classList.add("warn-1");
+
 		if (minsSinceInput >= 5) {
 			el.classList.add("warn-2");
 		}
-		el.classList.add("warn-1");
+	} else {
+		el.classList.remove("warn-1");
+		el.classList.remove("warn-2");
 	}
 }
 
