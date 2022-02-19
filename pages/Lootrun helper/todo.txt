@@ -12,6 +12,7 @@ RESOURCES
 	Nearest neighbour canvas image scaling: https://itch.io/jam/lowrezjam2016/topic/19730/solved-html5-canvas-scaling-nearest-neighbor-no-blur
 	Canvas Zoom: https://duckduckgo.com/?t=ffab&q=html+canvas+zoom&ia=web
 	Javascript map library: https://leafletjs.com/
+	Drag and drop and file handling: https://youtu.be/jEjo9UytpIc
 
 
 -------------------------------- Find TAB --------------------------------
