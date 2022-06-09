@@ -1,0 +1,42 @@
+{
+	"name": "portfolio-site",
+	"author": "MikhaD",
+	"version": "0.0.0",
+	"license": "GPL-3.0",
+	"private": "true",
+	"type": "module",
+	"scripts": {
+		"dev": "svelte-kit dev --open",
+		"build": "svelte-kit build",
+		"package": "svelte-kit package",
+		"preview": "svelte-kit preview",
+		"prepare": "svelte-kit sync",
+		"check": "svelte-check --tsconfig ./tsconfig.json",
+		"check:watch": "svelte-check --tsconfig ./tsconfig.json --watch"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+https://github.com/MikhaD/MikhaD.github.io.git"
+	},
+	"keywords": [
+		"portfolio",
+		"MikhaD",
+		"developer"
+	],
+	"bugs": {
+		"url": "https://github.com/MikhaD/MikhaD.github.io/issues"
+	},
+	"homepage": "https://mikhad.github.io",
+	"devDependencies": {
+		"@sveltejs/adapter-static": "^1.0.0-next.34",
+		"@sveltejs/kit": "next",
+		"svelte": "^3.44.0",
+		"svelte-check": "^2.7.1",
+		"svelte-preprocess": "^4.10.6",
+		"tslib": "^2.3.1",
+		"typescript": "^4.7.2"
+	},
+	"dependencies": {
+		"sass": "^1.52.3"
+	}
+}
